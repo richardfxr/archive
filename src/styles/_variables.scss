@@ -1,0 +1,42 @@
+// Partial SCSS file containing variables
+
+// === USE ====================================
+@use 'colors' as *;
+
+/* ============================================
+   VARIABLES
+   ============================================ */
+
+// === BREAKPOINTS ============================
+$breakpoint-smtablet: 1000px;
+
+:root {
+    --maxWidth: 2000px;
+    --topbar-height: calc(0.95rem + 2 * var(--pad-xl));
+    --sidebar-width: 500px;
+
+    --border-width: 1px;
+    --border: solid var(--border-width);
+
+    --pad-border: 22px;
+    --pad-6xl: 45px;
+    --pad-5xl: 40px;
+    --pad-4xl: 35px;
+    --pad-3xl: 30px;
+    --pad-2xl: 25px;
+    --pad-xl: 20px;
+    --pad-lg: 17px;
+    --pad-md: 14px;
+    --pad-sm: 10px;
+    --pad-xs: 7px;
+
+    /* === COLORS ============================= */
+
+    /* light theme (default) */
+    // parse $light into CSS variables
+    @each $name, $value in $dark {
+        --clr-#{$name}: #{$value};
+    }
+
+    color-scheme: light;
+}

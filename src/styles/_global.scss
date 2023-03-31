@@ -1,0 +1,158 @@
+// Partial SCSS file containing global CSS styles
+
+// === USE ====================================
+@use 'variables' as *;
+
+/* ============================================
+GLOBAL
+============================================ */
+
+:global {
+    html, body {
+        font-family: "Satoshi", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 400;
+        line-height: 1em;
+        color: var(--clr-700);
+        background-color: var(--clr-50);
+    }
+}
+
+.topbar {
+    // internal variables
+    --_indicator-width: 5px;
+    --_line-height: 1px;
+    --_span-pad: 8px;
+
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--topbar-height);
+
+    font-weight: 500;
+    text-transform: uppercase;
+
+    &::after {
+        // horizontal line
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 0;
+
+        height: var(--_line-height);
+
+        margin-top: calc(0.475rem + var(--pad-xl) - 0.5 * var(--_line-height));
+        background-color: var(--clr-600);
+
+        animation: fadeIn 0.25s 0.25s ease-out 1;
+        animation-fill-mode: backwards;
+    }
+
+    span {
+        // internal variables
+        --_animation-duration: 0.25s;
+        --_animation-easing: cubic-bezier(.37,.28,.4,1.01);
+
+        display: block;
+        z-index: 1;
+        background-color: var(--clr-50);
+        
+        &:first-child {
+            padding-right: var(--_span-pad);
+            padding-left: var(--pad-border);
+
+            &::before {
+                // bottom left decorative line
+                content: "";
+                position: absolute;
+                bottom: calc(-1 * var(--_line-height));
+                left: 0;
+        
+                width: 12px;
+                height: var(--_line-height);
+        
+                background-color: var(--clr-1000);
+
+                animation: slideInFromRight var(--_animation-duration) var(--_animation-easing)  1;
+            }
+        }
+
+        &:last-child {
+            padding-right: var(--pad-border);
+            padding-left: var(--_span-pad);
+
+            &::after {
+                // bottom right decorative line
+                content: "";
+                position: absolute;
+                right: 6px;
+                bottom: calc(-1 * var(--_line-height));
+        
+                width: 6px;
+                height: var(--_line-height);
+        
+                background-color: var(--clr-1000);
+
+                animation: slideInFromLeft var(--_animation-duration) var(--_animation-easing)  1;
+            }
+        }
+    }
+}
+
+.visuallyHidden {
+    /* elements with this class will not be displayed visually but still be read by screen readers */
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+}
+
+
+
+// === KEYFRAMES ==========================
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(70px);
+    }
+
+    to {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-70px);
+    }
+
+    to {
+        transform: translateX(0px);
+    }
+}
+
+
+
+// === MEDIA QUERIES ======================
+@media (max-width: $breakpoint-smtablet) {
+    .topbar {
+        border-bottom: var(--border) var(--clr-blue-200);
+    }
+}
