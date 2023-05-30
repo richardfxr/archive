@@ -1,8 +1,17 @@
+<script lang="ts">
+    /* === IMPORTS ============================ */
+    import VrtGridLines from "$lib/vrtGridLines.svelte";
+</script>
+
+
+
 <header class="header">
-    <div class="title">
+    <VrtGridLines aside />
+
+    <div class="main">
         <div class="text">
             <h1>Archive</h1>
-            <span class="version">v1.0.0</span>
+            
             <p>The complete collection of Richard Fu's work.</p>
         </div>
 
@@ -12,9 +21,9 @@
         </div>
     </div>
 
-    <div class="topbar dates">
-        <span>Updated</span>
-        <span>2023-03-28</span>
+    <div class="bottomText">
+        <p class="version smallText">v1.0.0-alpha1</p>
+        <p class="update smallText"><span class="em">UD</span> 2023-05-29</p>
     </div>
 </header>
 
@@ -22,56 +31,46 @@
 <style lang="scss">
     .header {
         // internal variables
-        --_square-size: 6px;
         --_animation-duration: 0.18s;
         --_animation-easing: cubic-bezier(.16,.25,.4,1.01);
 
-        display: flex;
-        flex-direction: column;
-        gap: var(--pad-3xl);
         position: relative;
 
-        padding-bottom: var(--pad-6xl);
+        padding-top: calc($topbar-height + $border-width);
+    }
 
-        &::before {
-            // bottom left square
+    .main {
+        position: relative;
+        z-index: 1;
+
+        background-color: var(--clr-bg);
+        padding: var(--pad-sm) 0;
+        border: $border var(--clr-border-main);
+        margin: $border-gap;
+
+        &::before, &::after {
+            // top line marks
             content: "";
             position: absolute;
-            bottom: var(--pad-md);
-            left: var(--pad-border);
-    
-            width: var(--_square-size);
-            height: var(--_square-size);
-    
+            top: $mark-top;
+            width: $border-width;
+            height: $mark-size;
+
             background-color: var(--clr-1000);
 
             animation: squareSlideFromRight var(--_animation-duration) 0.3s var(--_animation-easing) 1;
             animation-fill-mode: backwards;
         }
 
-        &::after {
-            // bottom right square
-            content: "";
-            position: absolute;
-            right: var(--pad-border);
-            bottom: var(--pad-md);
-    
-            width: var(--_square-size);
-            height: var(--_square-size);
-    
-            background-color: var(--clr-1000);
-
-            animation: squareSlideFromLeft var(--_animation-duration) 0.4s var(--_animation-easing) 1;
-            animation-fill-mode: backwards;
+        &::before {
+            // top left line mark
+            left: -$border-width;
         }
-    }
 
-    .title {
-        display: flex;
-        flex-direction: row;
-        gap: var(--pad-xl);
-
-        padding: 0 var(--pad-border);
+        &::after {
+            // top right line mark
+            right: -$border-width;
+        }
     }
 
     .text {
@@ -80,10 +79,8 @@
         --_animation-duration: 0.18s;
         --_animation-easing: cubic-bezier(.16,.25,.4,1.01);
 
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        overflow: hidden;
+        padding: var(--pad-border);
+        border-top: $border var(--clr-border-main);
 
         h1 {
             font-family: "GeneralSans", sans-serif;
@@ -93,28 +90,17 @@
             text-transform: uppercase;
             color: var(--clr-1000);
 
-            margin-bottom: var(--pad-xs);
+            // alignment compensation
+            margin-top: -0.2rem;
 
             animation: h1SlideFromRight 0.35s cubic-bezier(.23,0,.26,1.09) 1;
-        }
-
-        .version {
-            display: block;
-            font-weight: 700;
-            color: var(--clr-0);
-            background-color: var(--clr-1000);
-
-            padding: 0 var(--pad-sm);
-
-            animation: versionSlideFromRight 0.3s 0.15s cubic-bezier(.23,0,.26,1.09) 1;
-            animation-fill-mode: backwards;
         }
 
         p {
             line-height: 1.1em;
             max-width: 20ch;
 
-            margin-top: var(--pad-md);
+            margin-top: var(--pad-xs);
 
             animation: pFadeIn 0.3s 0.35s ease-out 1;
             animation-fill-mode: backwards;
@@ -124,23 +110,55 @@
     .quicksettings {
         display: flex;
         flex-flow: row wrap;
-        gap: var(--pad-sm);
         justify-content: end;
+
+        border-top: $border var(--clr-border-main);
+        border-bottom: $border var(--clr-border-main);
         margin-left: auto;
 
         .placeholder {
-            width: 30px;
-            height: 30px;
-            border: 1px solid var(--clr-600);
+            width: var(--input-size);
+            height: var(--input-size);
+            border-left: $border var(--clr-border-main);
         }
     }
 
-    .dates {
-        // put dates above title text
-        order: -1;
+    .bottomText {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+
+        padding: var(--pad-2xs) var(--pad-xs);
+
+        &::before, &::after {
+            // top and bottom border
+            content: "";
+            position: absolute;
+            right: $border-protrusion;
+            left: $border-protrusion;
+            height: $border-width;
+
+            background-color: var(--clr-border-bg);
+        }
+
+        &::before {
+            top: 0;
+        }
+
+        &::after {
+            bottom: 0;
+        }
     }
 
 
+
+    // === BREAKPOINTS ========================
+    @media (min-width: $breakpoint-stacked) {
+        .header {
+            border-right: $border var(--clr-border-bg);
+        }
+    }
 
     // === KEYFRAMES ==========================
     @keyframes squareSlideFromRight {
