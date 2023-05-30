@@ -6,19 +6,28 @@
 /* ============================================
    VARIABLES
    ============================================ */
+$border-width: 1px;
+$border: solid $border-width;
+$border-gap: 1px;
+$border-protrusion: -3px;
+
+$topbar-height: 35px;
+$mark-size: 13px;
+$mark-top: calc(-1 * $mark-size - 6px);
 
 // === BREAKPOINTS ============================
-$breakpoint-smtablet: 1000px;
+$breakpoint-stacked: 1000px;
+$breakpoint-4col: 1600px;
+$breakpoint-3col: 1300px;
+$breakpoint-2col: 750px;
 
 :root {
     --maxWidth: 2000px;
-    --topbar-height: calc(0.95rem + 2 * var(--pad-xl));
     --sidebar-width: 500px;
 
-    --border-width: 1px;
-    --border: solid var(--border-width);
+    --input-size: 45px;
 
-    --pad-border: 22px;
+    --pad-border: 9px;
     --pad-6xl: 45px;
     --pad-5xl: 40px;
     --pad-4xl: 35px;
@@ -29,14 +38,47 @@ $breakpoint-smtablet: 1000px;
     --pad-md: 14px;
     --pad-sm: 10px;
     --pad-xs: 7px;
+    --pad-2xs: 5px;
+    --pad-3xs: 3px;
+
+    --trans-normal: 0.2s ease;
+
+    --content-line-inset: calc(0.25 * 100% - 0.5 * #{$border-gap});
 
     /* === COLORS ============================= */
 
     /* light theme (default) */
     // parse $light into CSS variables
-    @each $name, $value in $dark {
+    @each $name, $value in $light {
         --clr-#{$name}: #{$value};
     }
 
     color-scheme: light;
+}
+
+
+
+/* === BREAKPOINTS ============================ */
+@media (max-width: $breakpoint-4col) {
+    :root {
+        --content-line-inset: calc(0.3333 * (100% - 2 * #{$border-gap}) + #{$border-gap});
+    }
+}
+
+@media (max-width: $breakpoint-3col) {
+    :root {
+        --content-line-inset: calc(50% - 0.5 * #{$border-width});
+    }
+}
+
+@media (max-width: $breakpoint-stacked) {
+    :root {
+        --content-line-inset: calc(0.3333 * (100% - 2 * #{$border-gap}));
+    }
+}
+
+@media (max-width: $breakpoint-2col) {
+    :root {
+        --content-line-inset: calc(50% - 0.5 * #{$border-width} + #{$border-gap});
+    }
 }
