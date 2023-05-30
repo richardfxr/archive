@@ -14,7 +14,18 @@ GLOBAL
         font-weight: 400;
         line-height: 1em;
         color: var(--clr-700);
-        background-color: var(--clr-50);
+        background-color: var(--clr-bg);
+    }
+}
+
+.smallText {
+    color: var(--clr-550);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1em;
+
+    .em {
+        color: var(--clr-900);
     }
 }
 
@@ -59,7 +70,7 @@ GLOBAL
 
         display: block;
         z-index: 1;
-        background-color: var(--clr-50);
+        background-color: var(--clr-bg);
         
         &:first-child {
             padding-right: var(--_span-pad);
@@ -151,8 +162,8 @@ GLOBAL
 
 
 // === MEDIA QUERIES ======================
-@media (max-width: $breakpoint-smtablet) {
+@media (max-width: $breakpoint-stacked) {
     .topbar {
-        border-bottom: var(--border) var(--clr-blue-200);
+        border-bottom: $border var(--clr-border-bg);
     }
 }
