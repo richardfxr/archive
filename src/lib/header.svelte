@@ -8,17 +8,20 @@
 <header class="header">
     <VrtGridLines aside />
 
-    <div class="main">
-        <div class="text">
-            <h1>Archive</h1>
-            
-            <p>The complete collection of Richard Fu's work.</p>
-        </div>
+    <div class="mainWrapper">
+        <div class="main">
+            <div class="text">
+                <h1>Archive</h1>
+                
+                <p>The complete collection of Richard Fu's work.</p>
+            </div>
 
-        <div class="quicksettings">
-            <div class="placeholder"></div>
-            <div class="placeholder"></div>
+            <div class="quicksettings">
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+            </div>
         </div>
+        
     </div>
 
     <div class="bottomText">
@@ -39,7 +42,7 @@
         padding-top: calc($topbar-height + $border-width);
     }
 
-    .main {
+    .mainWrapper {
         position: relative;
         z-index: 1;
 
@@ -57,9 +60,6 @@
             height: $mark-size;
 
             background-color: var(--clr-1000);
-
-            animation: squareSlideFromRight var(--_animation-duration) 0.3s var(--_animation-easing) 1;
-            animation-fill-mode: backwards;
         }
 
         &::before {
@@ -73,14 +73,19 @@
         }
     }
 
+    .main {
+        border-top: $border var(--clr-border-main);
+        border-bottom: $border var(--clr-border-main);
+    }
+
     .text {
         // internal variables
         --_square-size: 6px;
         --_animation-duration: 0.18s;
         --_animation-easing: cubic-bezier(.16,.25,.4,1.01);
 
+        position: relative;
         padding: var(--pad-border);
-        border-top: $border var(--clr-border-main);
 
         h1 {
             font-family: "GeneralSans", sans-serif;
@@ -111,9 +116,9 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: end;
+        width: 100%;
 
         border-top: $border var(--clr-border-main);
-        border-bottom: $border var(--clr-border-main);
         margin-left: auto;
 
         .placeholder {
@@ -160,60 +165,34 @@
         }
     }
 
-    // === KEYFRAMES ==========================
-    @keyframes squareSlideFromRight {
-        from {
-            opacity: 0;
-            transform: translateX(80px);
+    @media (max-width: $breakpoint-stacked) {
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: end;
         }
 
-        to {
-            opacity: 1;
-            transform: translateX(0px);
-        }
-    }
+        .text::after {
+            // right border
+            content: "";
+            position: absolute;
+            top: 0;
+            right: calc(-0.5 * $border-width);
+            bottom: 0;
+            width: $border-width;
 
-    @keyframes squareSlideFromLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-80px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0px);
+            background-color: var(--clr-border-main);
         }
     }
 
-    @keyframes h1SlideFromRight {
-        from {
-            transform: translateX(100%);
+    @media (max-width: $breakpoint-2col) {
+        .main {
+            display: block;
         }
 
-        to {
-            transform: translateX(0%);
-        }
-    }
-
-    @keyframes versionSlideFromRight {
-        from {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0%);
-        }
-    }
-
-    @keyframes pFadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
+        .text::after {
+            // right border
+            display: none;
         }
     }
 </style>

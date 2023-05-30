@@ -106,20 +106,20 @@
             .left, .right {
                 display: block;
             }
-
-            .center {
-                display: none;
-            }
         }
     }
 
     @media (max-width: $breakpoint-2col) {
         .gridLines {
-            .center {
-                display: block;
-            }
-
             .left, .right {
+                display: none;
+            }
+        }
+    }
+
+    @media (max-width: $breakpoint-1col) {
+        .gridLines {
+            .center {
                 display: none;
             }
         }
