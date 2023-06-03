@@ -1,16 +1,22 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
     import Header from "$lib/header.svelte";
+    import SearchForm from "$lib/searchForm.svelte";
+
+    /* === VARIABLES ========================== */
+    let searchString = "";
 </script>
 
 
 
 <div class="wrapper">
     <Header />
+    <SearchForm 
+        {searchString} />
 
     <div class="content">
         <main id="main">
-            
+
         </main>
     </div>
 </div>
@@ -45,7 +51,7 @@
             grid-template-rows: auto 1fr;
             grid-template-areas:
                 "header content"
-                "filters content";
+                "searchForm content";
             align-items: start;
             column-gap: var(--pad-xl);
         }
@@ -55,7 +61,7 @@
         }
 
         :global(.searchForm) {
-            grid-area: filters;
+            grid-area: searchForm;
         }
 
         .content {
