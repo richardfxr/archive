@@ -8,8 +8,8 @@
 <header class="header">
     <VrtGridLines aside />
 
-    <div class="mainWrapper">
-        <div class="main">
+    <div class="main">
+        <div class="mainInner">
             <div class="text">
                 <h1>Archive</h1>
                 
@@ -42,38 +42,11 @@
         padding-top: calc($topbar-height + $border-width);
     }
 
-    .mainWrapper {
-        position: relative;
-        z-index: 1;
-
-        background-color: var(--clr-bg);
+    .main {
         padding: var(--pad-sm) 0;
-        border: $border var(--clr-border-main);
-        margin: $border-gap;
-
-        &::before, &::after {
-            // top line marks
-            content: "";
-            position: absolute;
-            top: $mark-top;
-            width: $border-width;
-            height: $mark-size;
-
-            background-color: var(--clr-1000);
-        }
-
-        &::before {
-            // top left line mark
-            left: -$border-width;
-        }
-
-        &::after {
-            // top right line mark
-            right: -$border-width;
-        }
     }
 
-    .main {
+    .mainInner {
         border-top: $border var(--clr-border-main);
         border-bottom: $border var(--clr-border-main);
     }
@@ -128,34 +101,6 @@
         }
     }
 
-    .bottomText {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        position: relative;
-
-        padding: var(--pad-2xs) var(--pad-xs);
-
-        &::before, &::after {
-            // top and bottom border
-            content: "";
-            position: absolute;
-            right: $border-protrusion;
-            left: $border-protrusion;
-            height: $border-width;
-
-            background-color: var(--clr-border-bg);
-        }
-
-        &::before {
-            top: 0;
-        }
-
-        &::after {
-            bottom: 0;
-        }
-    }
-
 
 
     // === BREAKPOINTS ========================
@@ -166,33 +111,24 @@
     }
 
     @media (max-width: $breakpoint-stacked) {
-        .main {
+        .mainInner {
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: end;
         }
 
-        .text::after {
-            // right border
-            content: "";
-            position: absolute;
-            top: 0;
-            right: calc(-0.5 * $border-width);
-            bottom: 0;
-            width: $border-width;
-
-            background-color: var(--clr-border-main);
+        .text {
+            border-right: $border var(--clr-border-main);
         }
     }
 
     @media (max-width: $breakpoint-2col) {
-        .main {
+        .mainInner {
             display: block;
         }
 
-        .text::after {
-            // right border
-            display: none;
+        .text {
+            border-right: none;
         }
     }
 </style>
