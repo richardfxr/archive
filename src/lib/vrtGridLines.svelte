@@ -1,11 +1,17 @@
 <script lang="ts">
     /* === PROPS ============================== */
     export let aside = false;
+    export let noLineMarks = false;
+    
 </script>
 
 
 
-<div class:aside class="gridLines" role="presentation">
+<div
+    class:aside
+    class:noLineMarks
+    class="gridLines"
+    role="presentation">
     <div class="left"></div>
     <div class="center"></div>
     <div class="right"></div>
@@ -40,6 +46,14 @@
                 height: $mark-size;
 
                 background-color: var(--clr-1000);
+            }
+        }
+
+        &.noLineMarks {
+            .left, .center, .right {
+                &::before {
+                    display: none;
+                }
             }
         }
 
