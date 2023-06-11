@@ -1,11 +1,13 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
+    import { tags } from '../store/data';
     import VrtGridLines from "$lib/vrtGridLines.svelte";
     import SearchIcon from "$lib/SVGs/searchIcon.svelte";
 
     /* === PROPS ============================== */
-    export let searchString: string;
+    export let searchString: string; // bind
     // let selectedCategories:
+    export let selectedTags: string[]; // bind
 
     /* === BINDINGS =========================== */
     let searchInput: HTMLElement;
@@ -40,7 +42,12 @@
                     class="visuallyHidden"
                     type="checkbox"
                     bind:checked={showFilters}>
-                Filters
+                <span>Filters</span>
+                <div class="tagDots">
+                    {#each tags as tag}
+                        <div class="dot" class:active={selectedTags.includes(tag)}></div>
+                    {/each}
+                </div>
             </label>
             
         </div>
@@ -53,13 +60,21 @@
     </div>
     
     <div class="bottomText">
-        <p class="smallText"><span class="em">0</span> filters</p>
+        {#if selectedTags.length === 1}
+            <p class="smallText"><span class="em">1</span> filter</p>
+        {:else}
+            <p class="smallText"><span class="em">{selectedTags.length}</span> filters</p>
+        {/if}
         <p class="smallText"><span class="em">0</span> projects</p>
     </div>
 </form>
 
 
 <style lang="scss">
+    // internal variables
+    $_tagDot-size: 4px;
+    $_tagDot-gap: 4px;
+
     .searchForm {
         position: sticky;
         top: calc(-1 * var(--pad-2xl) - #{$border-width});
@@ -145,6 +160,26 @@
         padding: var(--pad-border);
 
         cursor: pointer;
+
+        .tagDots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: $_tagDot-gap;
+            margin-left: auto;
+
+            .dot {
+                width: $_tagDot-size;
+                height: $_tagDot-size;
+
+                background-color: var(--clr-bg);
+                border: $border var(--clr-500);
+
+                &.active {
+                    background-color: var(--clr-900);
+                    border-color: var(--clr-900);
+                }
+            }
+        }
     }
 
     .filters {
