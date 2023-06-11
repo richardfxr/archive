@@ -5,6 +5,7 @@
 
     /* === VARIABLES ========================== */
     let searchString = "";
+    let selectedTags: string[] = ['active'];
 </script>
 
 
@@ -12,7 +13,8 @@
 <div class="wrapper">
     <Header />
     <SearchForm 
-        {searchString} />
+        bind:searchString = {searchString}
+        bind:selectedTags = {selectedTags} />
 
     <div class="content">
         <main id="main">
