@@ -72,8 +72,8 @@
 
 <style lang="scss">
     // internal variables
-    $_tagDot-size: 4px;
-    $_tagDot-gap: 4px;
+    $_tagDot-size: 5px;
+    $_tagDot-gap: 2px;
 
     .searchForm {
         position: sticky;
@@ -175,8 +175,8 @@
                 border: $border var(--clr-500);
 
                 &.active {
-                    background-color: var(--clr-900);
-                    border-color: var(--clr-900);
+                    background-color: var(--clr-500);
+                    border-color: var(--clr-500);
                 }
             }
         }
